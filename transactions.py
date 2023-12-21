@@ -5,7 +5,6 @@ import datetime
 
 
 
-
 def add_transaction(transactions):
     print("\n--- Add a Transaction ---")
 
