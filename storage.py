@@ -2,6 +2,8 @@
 
 import csv
 import datetime
+import shutil
+import os
         
 def input_income(incomes):
     income_input = input("Enter income details (type, amount, date, period, note): ")
@@ -45,7 +47,7 @@ def input_expenses(expenses):
 
 
 def save_to_csv(data, filename, fieldnames):
-    with open(filename, 'a', newline='') as csvfile:  # Use 'a' for append mode
+    with open(filename, 'w', newline='') as csvfile:  # Use 'a' for append mode
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         if csvfile.tell() == 0:  # Write header only if file is empty
             writer.writeheader()
@@ -63,13 +65,16 @@ def load_from_csv(filename):
     return datas
 
 
-def create_timestamped_backup(filepath):
+
+def create_timestamped_backup(original_file, backup_dir='Backup'):
+    # Ensure the backup directory exists
+    if not os.path.exists(backup_dir):
+        os.makedirs(backup_dir)
+
+    # Create a timestamp
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    backup_filepath = f"Data/Backup/transactions_backup_{timestamp}.csv"
-    try:
-        with open(filepath, 'r') as file:
-            data = file.read()
-        with open(backup_filepath, 'w') as backup_file:
-            backup_file.write(data)
-    except FileNotFoundError:
-        pass  # If the original file doesn't exist, no backup is created
+    backup_filename = f"{backup_dir}/{os.path.basename(original_file).split('.')[0]}_backup_{timestamp}.csv"
+
+    # Copy the original file to the new backup file
+    shutil.copyfile(original_file, backup_filename)
+    print(f"Backup created: {backup_filename}")

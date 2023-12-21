@@ -31,12 +31,15 @@ def main():
         if choice == '1':  # Input incomes
             storage.input_income(incomes)
             storage.save_to_csv(incomes, INCOME_PATH, ['Type', 'Amount', 'Date', 'Period', 'Note'])
+            storage.create_timestamped_backup(INCOME_PATH)
         elif choice == '2':  # Input assets
             storage.input_assets(assets)
             storage.save_to_csv(assets, ASSET_PATH, ['Type', 'Expectation', 'Date', 'Note'])
+            storage.create_timestamped_backup(ASSET_PATH)
         elif choice == '3':  # Input expenses
             storage.input_expenses(expenses)
             storage.save_to_csv(expenses, EXPENSE_PATH, ['Type', 'Amount', 'Date', 'Period', 'Note'])
+            storage.create_timestamped_backup(EXPENSE_PATH)
         elif choice == '5':
             print("Exiting program.")
             break
