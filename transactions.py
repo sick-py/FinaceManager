@@ -91,12 +91,12 @@ def display_income_vs_expense_chart(transactions):
     plt.title('Total Income vs Total Expense')
     plt.show()
     
-def filter_transactions_by_period(transactions, period):
+def filter_transactions_by_period(transactions, period): #default this monthm
     filtered_transactions = []
     current_date = datetime.datetime.now()
 
     for transaction in transactions:
-        transaction_date = parser.parse(transaction['date'])
+        transaction_date = parser.parse(transaction['Date'])
 
         if period == 'month' and transaction_date.month == current_date.month and transaction_date.year == current_date.year:
             filtered_transactions.append(transaction)
@@ -104,10 +104,12 @@ def filter_transactions_by_period(transactions, period):
             filtered_transactions.append(transaction)
         elif period == 'year' and transaction_date.year == current_date.year:
             filtered_transactions.append(transaction)
+        else:
+            print("please input correct period")
 
     return filtered_transactions
 
-def filter_transactions_by_date_range(transactions, start_date, end_date):
+def filter_transactions_by_date_range(transactions, start_date, end_date): #default this month
     filtered_transactions = []
     start_date_parsed = parser.parse(start_date)
     end_date_parsed = parser.parse(end_date)

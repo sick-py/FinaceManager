@@ -3,6 +3,7 @@
 import transactions
 import storage
 import os
+import budget
 
 INCOME_PATH = 'Data/income.csv'
 ASSET_PATH = 'Data/asset.csv'
@@ -12,18 +13,27 @@ def main():
     if not os.path.exists('Data'):
         os.makedirs('Data')
 
+    # load the data
     incomes = storage.load_from_csv(INCOME_PATH)
     assets = storage.load_from_csv(ASSET_PATH)
     expenses = storage.load_from_csv(EXPENSE_PATH)
+    
+    budget_categories = {
+    'Needs': 0.50,  # 50% of income
+    'Wants': 0.30,  # 30% of income
+    'Savings': 0.20 # 20% of income
+    }
+
+
     while True:
         print("\n--- Finance Manager ---")
         print("1. Add an income")
         print("2. Add an asset")
-        print("3. Add an expense")
-        print("2. Display transactions")
-        print("3. Display Income vs Expense")
-        print("4. Display transactions in a period")
-        print("5. Exit")
+        print("3. Add an expense(add need- tag if it's need, else it will be want)")
+        print("4. show budget") #how many can we use this month
+        print("5. Display transactions")
+        print("6. Display Expense") #where does the money go? to be done 
+        print("7. Exit")
 
 
         choice = input("Enter your choice: ")
@@ -40,7 +50,9 @@ def main():
             storage.input_expenses(expenses)
             storage.save_to_csv(expenses, EXPENSE_PATH, ['Type', 'Amount', 'Date', 'Period', 'Note'])
             storage.create_timestamped_backup(EXPENSE_PATH)
-        elif choice == '5':
+        elif choice == '4':
+            budget.compare_budget_to_spending(budget.set_budget(incomes, budget_categories), expenses)
+        elif choice == '7':
             print("Exiting program.")
             break
         else:

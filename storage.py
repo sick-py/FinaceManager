@@ -11,9 +11,9 @@ def input_income(incomes):
     note = note[0] if note else 'No notes'  # Default note
 
     incomes.append({
-        "Type": type.strip() or 'Unknown Type',
+        "Type": "income-" +  type.strip() or 'Unknown Type',
         "Amount": float(amount.strip()) if amount.strip() else 0,
-        "Date": date.strip() or '2023-01-01',  # Default date
+        "Date": date.strip() or datetime.date.today().strftime('%Y-%m-%d'),  # Default date
         "Period": float(period.strip()) if period.strip() else 30,  # Default period
         "Note": note.strip()
     })
@@ -25,9 +25,9 @@ def input_assets(assets):
     note = note[0] if note else 'No notes'
 
     assets.append({
-        "Type": type.strip() or 'Unknown Asset',
+        "Type": "asset-" + type.strip() or 'Unknown Asset',
         "Expectation": float(value.strip()) if value.strip() else 0,
-        "Date": date.strip() or '2023-01-01',
+        "Date": date.strip() or datetime.date.today().strftime('%Y-%m-%d'),
         "Note": note.strip()
     })
 
@@ -37,9 +37,9 @@ def input_expenses(expenses):
     note = note[0] if note else 'No notes'
 
     expenses.append({
-        "Type": type.strip() or 'Unknown Expense',
+        "Type":  "expense-" + type.strip() or 'Unknown Expense',
         "Amount": float(amount.strip()) if amount.strip() else 0,
-        "Date": date.strip() or '2023-01-01',
+        "Date": date.strip() or datetime.date.today().strftime('%Y-%m-%d'),
         "Period": float(period.strip()) if period.strip() else 0,
         "Note": note.strip()
     })
