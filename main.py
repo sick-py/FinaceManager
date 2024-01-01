@@ -4,6 +4,7 @@ import transactions
 import storage
 import os
 import budget
+import display
 
 INCOME_PATH = 'Data/income.csv'
 ASSET_PATH = 'Data/asset.csv'
@@ -52,6 +53,8 @@ def main():
             storage.create_timestamped_backup(EXPENSE_PATH)
         elif choice == '4':
             budget.compare_budget_to_spending(budget.set_budget(incomes, budget_categories), expenses)
+        elif choice == '6':
+            display.plot_expenses(expenses)
         elif choice == '7':
             print("Exiting program.")
             break
